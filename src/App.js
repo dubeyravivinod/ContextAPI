@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Login from './Components/Login';
+import Navbar from './Components/NavBar';
+import AuthProvider, { useAuthContext } from './Context/AuthProvider';
 
-function App() {
+function App( { isLogedIn }) {
+  const [isLogin, setLogin] = useState(false);
+  // const { isLogedIn } = useAuthContext();
+  console.log(isLogedIn);
+
+  const login = (bool) => {
+    console.log(bool, 'dsafasd');
+    setLogin(bool);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AuthProvider>
+        { isLogin ? <Navbar set={login} /> : <Login set={login} /> }
+      </AuthProvider>
     </div>
   );
 }
